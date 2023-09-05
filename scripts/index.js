@@ -74,10 +74,19 @@ async function gatherPlaylistVideos(playlistId){
   
   // parse relevant video data
   var videoData = []
+  var idOffset = 0
   for (let i = 0; i < videos.length; i++){
+    try{
+      url = videos[i].snippet.thumbnails.default.url
+    }
+    catch(err){
+      console.log('Error has occurred  ' + err + " at videoId " + videos[i].snippet.resourceId.videoId)
+      idOffset++
+      continue;
+    }
     videoData.push(
       {
-        id : i,
+        id : i - idOffset,
         title : videos[i].snippet.title,
         thumbnail : videos[i].snippet.thumbnails.default.url,
         videoId : videos[i].snippet.resourceId.videoId,
@@ -166,4 +175,3 @@ const main = async () => {
   const videoId = await randomVideo(videoData)
   loadVideo(videoId)
 }
-

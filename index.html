@@ -17,7 +17,13 @@
       </div>
     </div>
   </body> 
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- Must be like this so DOM loads and then youtube player can load into id=player -->
+  <script>
+    let head = document.querySelector('head');
+    let script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    head.appendChild(script);
+  </script>
   <script src="scripts/index.js"></script> 
   <link rel="stylesheet" href="styles/index.css">
 </html>
